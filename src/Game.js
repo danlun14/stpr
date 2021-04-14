@@ -1,25 +1,24 @@
 import './Game.css';
-function Cell(props) {
-    return (
-        <div className="cell">{props.name} </div>
-    );
+import React from 'react';
+
+class Square extends React.Component {
+    render() {
+        return (
+            <button className="Cell">
+            </button>
+        );
+    }
 }
 
-
-
-function Game() {
-    return (
-        <><Cell name="Алиса" />
-            <Cell name="Базилио" />
-            <Cell name="Буратино" />
-            <Cell name="Алиса" />
-            <Cell name="Базилио" />
-            <Cell name="Буратино" />
-            <Cell name="Алиса" />
-            <Cell name="Базилио" />
-            <Cell name="Буратино" />
-        </>
-    );
+class Game extends React.Component {
+    render() {
+        return (
+            <div className="game-board">
+                <Square />
+            </div>
+        );
+    }
 }
+
 
 export default Game;

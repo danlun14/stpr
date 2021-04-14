@@ -5,9 +5,7 @@ import Game from './Game'
 
 function App() {
   return (
-    <div className="Game">
-      <Game />
-    </div>
+    <Game />
   );
 }
 
