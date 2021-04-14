@@ -6,10 +6,16 @@
     border: 4px solid rgb(3, 212, 202);
 }
 
-
 .playing-board{
     width: 243px;
     height: 243px;
     margin-left: auto;
     margin-right: auto;
+}
+
+.current-turn{
+    margin-top: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
 }

@@ -16,8 +16,11 @@ class Board extends React.Component {
     }
 
     render() {
+        const status = 'Next turn:';
+
         return (
             <div>
+                <div className="current-turn">{status}</div>
                 <div className="playing-board">
                     <div className="board-row">
                         {this.renderSquare()}
