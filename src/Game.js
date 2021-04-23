@@ -2,19 +2,10 @@ import './Game.css';
 import React from 'react';
 
 class Square extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            value: null,
-            clName: "CellWin",
-        };
-    }
-
     render() {
         return (
-            <button type="" className="Cell"
-                onClick={() => this.setState({ value: 'x' })}>
-                <div className="XOstyle"><div className={this.props.clName}>{this.state.value}</div></div>
+            <button type="" className="Cell" onClick={() => this.props.click()}>
+                <div className="XOstyle"><div className={this.props.clName}>{this.props.value}</div></div>
             </button >
         );
     }
@@ -28,8 +19,20 @@ class Board extends React.Component {
         };
     }
 
+
+    handleClick(i) {
+        const squares = this.state.squares.slice();
+        squares[i] = 'X';
+        this.setState({ squares: squares });
+    }
+
     renderSquare(i, winCell) {
-        return <Square value={this.state.squares[i]} clName={winCell} />;
+        return (
+            <Square
+                value={this.state.squares[i]}
+                click={() => this.handleClick(i)}
+                clName={winCell}
+            />);
     }
 
     render() {
