@@ -1,29 +1,42 @@
 import './Game.css';
 import React from 'react';
 
-class Square extends React.Component {
-    render() {
-        return (
-            <button type="" className="Cell" onClick={() => this.props.click()}>
-                <div className="XOstyle"><div className={this.props.clName}>{this.props.value}</div></div>
-            </button >
-        );
-    }
+function Square(props) {
+    return (
+        <button type="" className="Cell" onClick={props.click}>
+            <div className="XOstyle"><div className={props.clName}>{props.value}</div></div>
+        </button >
+    );
 }
+
 
 class Board extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             squares: Array(9).fill(null),
+            nextTurn: "X"
         };
     }
 
 
     handleClick(i) {
         const squares = this.state.squares.slice();
-        squares[i] = 'X';
-        this.setState({ squares: squares });
+        if (squares[i]) {
+            return;
+        }
+        squares[i] = this.state.nextTurn;
+        let next = this.state.nextTurn;
+        if (next === "X") {
+            next = "O";
+        } else {
+            next = "X";
+        }
+        this.setState(
+            {
+                squares: squares,
+                nextTurn: next
+            });
     }
 
     renderSquare(i, winCell) {
@@ -36,7 +49,7 @@ class Board extends React.Component {
     }
 
     render() {
-        const status = 'Next turn:';
+        const status = 'Next turn: ' + this.state.nextTurn;
 
         return (
             <div>
