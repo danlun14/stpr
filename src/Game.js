@@ -6,22 +6,30 @@ class Square extends React.Component {
         super(props);
         this.state = {
             value: null,
+            clName: "CellWin",
         };
     }
 
     render() {
         return (
-            <button className="Cell"
-                onClick={() => this.setState({ value: 'X' })}>
-                {this.state.value}
-            </button>
+            <button type="" className="Cell"
+                onClick={() => this.setState({ value: 'x' })}>
+                <div className="XOstyle"><div className={this.props.clName}>{this.state.value}</div></div>
+            </button >
         );
     }
 }
 
 class Board extends React.Component {
-    renderSquare(i) {
-        return <Square />;
+    constructor(props) {
+        super(props);
+        this.state = {
+            squares: Array(9).fill(null),
+        };
+    }
+
+    renderSquare(i, winCell) {
+        return <Square value={this.state.squares[i]} clName={winCell} />;
     }
 
     render() {
@@ -38,7 +46,7 @@ class Board extends React.Component {
                     </div>
                     <div className="board-row">
                         {this.renderSquare(3)}
-                        {this.renderSquare(4)}
+                        {this.renderSquare(4, "CellContentWin")}
                         {this.renderSquare(5)}
                     </div>
                     <div className="board-row">

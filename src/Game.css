@@ -1,9 +1,36 @@
-.Cell{
+.CellContentWin{
+    color: #e22e17;
+
+}
+
+.XOstyle{
+  font-size: 40px;
+}
+
+.Cell {
+    float: left;
     width: 73px;
     height: 73px;
-    background: rgba(24, 175, 44, 0.377);
-    float: left;
-    border: 4px solid rgb(3, 212, 202);
+    text-decoration: none;
+    color: rgb(7, 12, 29);
+    text-align: center;
+    line-height: 1px;
+  }
+  
+.Cell:not(.active) {
+    box-shadow: inset 0 1px 1px rgba(12, 1, 109, 0.8), inset 0 -1px 0px rgba(63, 59, 113, 0.2), 0 9px 16px 0 rgba(0, 0, 0, 0.3), 0 4px 3px 0 rgba(0, 0, 0, 0.3), 0 0 0 1px #150a1e;
+    
+    background-color: rgba(0, 25, 168, 0.986);
+    text-shadow: 0 0 21px rgba(190, 32, 238, 0.5), 0 -1px 0 #1b055a;
+}
+
+.Cell:not(.active):hover {
+    transition: color 200ms linear, text-shadow 500ms linear;
+    background-color:  rgba(2, 115, 180, 0.63);
+    text-shadow: 0 0 21px rgba(223, 206, 228, 0.5), 0 0 10px rgba(223, 206, 228, 0.4), 0 0 2px #2a153c;
+  }
+.Cell:not(:hover) {
+      transition: 2s;
 }
 
 .playing-board{
