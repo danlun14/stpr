@@ -3,8 +3,15 @@ import React from 'react';
 
 function Square(props) {
     return (
-        <button type="" className="Cell" onClick={props.click}>
+        <button className="Cell" onClick={props.click}>
             <div className="XOstyle"><div className={props.clName}>{props.value}</div></div>
+        </button >
+    );
+}
+function StartNewGame(props) {
+    return (
+        <button className="startButton" onClick={props.click}>
+            <div className="startButtonContent">vat</div>
         </button >
     );
 }
@@ -49,19 +56,30 @@ class Board extends React.Component {
         this.setState(
             {
                 nextTurn: next
-
             });
     }
+    handleNewGameClick() {
+        this.setState({
+            squares: Array(9).fill(null),
+            nextTurn: "X",
+            numTurn: 0
+        });
+    }
 
-    handleClick(i) {
+
+    handleFieldClick(i) {
         const squares = this.state.squares.slice();
-        if ((calculateWinner(squares) != null) || squares[i]) {
+        if (calculateWinner(squares) != null) {
+            return;
+        }
+        if (squares[i]) {
             return;
         }
         squares[i] = this.state.nextTurn;
         this.changeTurn();
         this.setState(
             {
+                gameStatus: 1,
                 numTurn: this.state.numTurn + 1,
                 squares: squares,
             });
@@ -83,7 +101,7 @@ class Board extends React.Component {
                 return (
                     <Square
                         value={this.state.squares[i]}
-                        click={() => this.handleClick(i)}
+                        click={() => this.handleFieldClick(i)}
                         clName={"CellContentWin"}
                     />);
             }
@@ -91,12 +109,18 @@ class Board extends React.Component {
         return (
             <Square
                 value={this.state.squares[i]}
-                click={() => this.handleClick(i)}
+                click={() => this.handleFieldClick(i)}
                 clName={null}
             />);
 
     }
 
+    renderStartGameButton() {
+        return (
+            <StartNewGame
+                click={() => this.handleNewGameClick()}
+            />);
+    }
 
     render() {
 
@@ -120,25 +144,28 @@ class Board extends React.Component {
 
         return (
             <div>
-                <div className="current-turn">{status}</div>
-                <div className="playing-board">
-                    <div className="board-row">
-                        {this.renderSquare(0, winnerStatus)}
-                        {this.renderSquare(1, winnerStatus)}
-                        {this.renderSquare(2, winnerStatus)}
+                <div>
+                    <div className="current-turn">{status}</div>
+                    <div className="playing-board">
+                        <div className="board-row">
+                            {this.renderSquare(0, winnerStatus)}
+                            {this.renderSquare(1, winnerStatus)}
+                            {this.renderSquare(2, winnerStatus)}
+                        </div>
+                        <div className="board-row">
+                            {this.renderSquare(3, winnerStatus)}
+                            {this.renderSquare(4, winnerStatus)}
+                            {this.renderSquare(5, winnerStatus)}
+                        </div>
+                        <div className="board-row">
+                            {this.renderSquare(6, winnerStatus)}
+                            {this.renderSquare(7, winnerStatus)}
+                            {this.renderSquare(8, winnerStatus)}
+                        </div>
                     </div>
-                    <div className="board-row">
-                        {this.renderSquare(3, winnerStatus)}
-                        {this.renderSquare(4, winnerStatus)}
-                        {this.renderSquare(5, winnerStatus)}
-                    </div>
-                    <div className="board-row">
-                        {this.renderSquare(6, winnerStatus)}
-                        {this.renderSquare(7, winnerStatus)}
-                        {this.renderSquare(8, winnerStatus)}
-                    </div>
-                </div>
-            </div >
+                </div >
+                <div>{this.renderStartGameButton()}</div>
+            </div>
         );
     }
 }

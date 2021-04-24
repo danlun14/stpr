@@ -6,6 +6,17 @@
 .XOstyle{
   font-size: 40px;
 }
+
+.startButton{
+  color: #61da10;
+  width: 76px;
+    height: 20px;
+}
+
+.startButtonContent{
+  color: #e22e17;
+}
+
 .Cell {
   background-size: 100%;
   padding: 8px 30px;
@@ -54,6 +65,8 @@
     line-height: 1px;
   }
  
+
+
 .playing-board{
     width: 252px;
     height: 252px;
