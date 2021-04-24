@@ -11,7 +11,7 @@ function Square(props) {
 function StartNewGame(props) {
     return (
         <button className="startButton" onClick={props.click}>
-            <div className="startButtonContent">vat</div>
+            <div className="startButtonContent">New game</div>
         </button >
     );
 }
@@ -164,7 +164,7 @@ class Board extends React.Component {
                         </div>
                     </div>
                 </div >
-                <div>{this.renderStartGameButton()}</div>
+                <div className="reset">{this.renderStartGameButton()}</div>
             </div>
         );
     }
