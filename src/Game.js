@@ -53,7 +53,7 @@ class Board extends React.Component {
 
     handleClick(i) {
         const squares = this.state.squares.slice();
-        if (calculateWinner(squares) || squares[i]) {
+        if ((calculateWinner(squares) != null) || squares[i]) {
             return;
         }
         squares[i] = this.state.nextTurn;
@@ -64,21 +64,43 @@ class Board extends React.Component {
             });
     }
 
-    renderSquare(i, winCell) {
+    renderSquare(i, winnerStatus) {
+        if (winnerStatus != null) {
+            const lines = [
+                [0, 1, 2],
+                [3, 4, 5],
+                [6, 7, 8],
+                [0, 3, 6],
+                [1, 4, 7],
+                [2, 5, 8],
+                [0, 4, 8],
+                [2, 4, 6],
+            ];
+            if ((i === lines[winnerStatus][0]) || (i === lines[winnerStatus][1]) || (i === lines[winnerStatus][2])) {
+                return (
+                    <Square
+                        value={this.state.squares[i]}
+                        click={() => this.handleClick(i)}
+                        clName={"CellContentWin"}
+                    />);
+            }
+        }
         return (
             <Square
                 value={this.state.squares[i]}
                 click={() => this.handleClick(i)}
-                clName={winCell}
+                clName={null}
             />);
+
     }
+
 
     render() {
 
         const winnerStatus = calculateWinner(this.state.squares);
         let status;
 
-        if (winnerStatus) {
+        if (winnerStatus != null) {
             let next = this.state.nextTurn;
             if (next === "X") {
                 next = "O";
@@ -95,19 +117,19 @@ class Board extends React.Component {
                 <div className="current-turn">{status}</div>
                 <div className="playing-board">
                     <div className="board-row">
-                        {this.renderSquare(0)}
-                        {this.renderSquare(1)}
-                        {this.renderSquare(2)}
+                        {this.renderSquare(0, winnerStatus)}
+                        {this.renderSquare(1, winnerStatus)}
+                        {this.renderSquare(2, winnerStatus)}
                     </div>
                     <div className="board-row">
-                        {this.renderSquare(3)}
-                        {this.renderSquare(4, "CellContentWin")}
-                        {this.renderSquare(5)}
+                        {this.renderSquare(3, winnerStatus)}
+                        {this.renderSquare(4, winnerStatus)}
+                        {this.renderSquare(5, winnerStatus)}
                     </div>
                     <div className="board-row">
-                        {this.renderSquare(6)}
-                        {this.renderSquare(7)}
-                        {this.renderSquare(8)}
+                        {this.renderSquare(6, winnerStatus)}
+                        {this.renderSquare(7, winnerStatus)}
+                        {this.renderSquare(8, winnerStatus)}
                     </div>
                 </div>
             </div>
