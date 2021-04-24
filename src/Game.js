@@ -34,7 +34,8 @@ class Board extends React.Component {
         super(props);
         this.state = {
             squares: Array(9).fill(null),
-            nextTurn: "X"
+            nextTurn: "X",
+            numTurn: 0
         };
     }
 
@@ -48,6 +49,7 @@ class Board extends React.Component {
         this.setState(
             {
                 nextTurn: next
+
             });
     }
 
@@ -60,6 +62,7 @@ class Board extends React.Component {
         this.changeTurn();
         this.setState(
             {
+                numTurn: this.state.numTurn + 1,
                 squares: squares,
             });
     }
@@ -107,9 +110,12 @@ class Board extends React.Component {
             } else {
                 next = "X";
             }
-            status = 'Winner: ' + next;
-        } else {
-            status = 'Next turn: ' + this.state.nextTurn;
+            status = 'Winner: ' + next + " !";
+        } else if (this.state.numTurn === 9) {
+            status = "Draw!";
+        }
+        else {
+            status = "Next turn: " + this.state.nextTurn;
         }
 
         return (
@@ -132,7 +138,7 @@ class Board extends React.Component {
                         {this.renderSquare(8, winnerStatus)}
                     </div>
                 </div>
-            </div>
+            </div >
         );
     }
 }
