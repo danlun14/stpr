@@ -1,11 +1,14 @@
 import './App.css';
 import Game from './Game'
+import Introduction from './Introduction'
 
 
 
 function App() {
-  return (
+  return (<div>
+    <Introduction />
     <Game />
+  </div>
   );
 }
 
