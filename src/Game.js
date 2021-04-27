@@ -42,11 +42,16 @@ class Board extends React.Component {
         this.state = {
             squares: Array(9).fill(null),
             nextTurn: "X",
-            numTurn: 0
+            numTurn: 0,
+            xwin: 0,
+            owin: 0,
+            gameStatus: 0
         };
     }
 
     changeTurn() {
+
+
         let next = this.state.nextTurn;
         if (next === "X") {
             next = "O";
@@ -57,18 +62,36 @@ class Board extends React.Component {
             {
                 nextTurn: next
             });
+
     }
     handleNewGameClick() {
+
+        const stat = this.tryToScore();
+        if (stat == null) {
+        }
         this.setState({
             squares: Array(9).fill(null),
-            nextTurn: "X",
-            numTurn: 0
+            numTurn: 0,
+            gameStatus: 0
+        });
+    }
+
+    xWin() {
+        this.setState({
+            xwin: this.state.xwin + 1
+        });
+    }
+
+    oWin() {
+        this.setState({
+            owin: this.state.owin + 1
         });
     }
 
 
-    handleFieldClick(i) {
+    clickStatus(i) {
         const squares = this.state.squares.slice();
+
         if (calculateWinner(squares) != null) {
             return;
         }
@@ -79,10 +102,14 @@ class Board extends React.Component {
         this.changeTurn();
         this.setState(
             {
-                gameStatus: 1,
                 numTurn: this.state.numTurn + 1,
-                squares: squares,
+                squares: squares
             });
+    }
+
+    handleFieldClick(i) {
+        this.clickStatus(i);
+        return;
     }
 
     renderSquare(i, winnerStatus) {
@@ -115,6 +142,26 @@ class Board extends React.Component {
 
     }
 
+    tryToScore() {
+        const winnerStatus = calculateWinner(this.state.squares);
+        if (this.state.gameStatus === 0) {
+            if (winnerStatus != null) {
+                let next = this.state.nextTurn;
+                if (next === "X") {
+                    this.oWin();
+                } else {
+                    this.xWin();
+                }
+                this.setState(
+                    {
+                        gameStatus: 1
+                    }
+                );
+            }
+        }
+        return winnerStatus;
+    }
+
     renderStartGameButton() {
         return (
             <StartNewGame
@@ -123,7 +170,6 @@ class Board extends React.Component {
     }
 
     render() {
-
         const winnerStatus = calculateWinner(this.state.squares);
         let status;
 
@@ -164,7 +210,10 @@ class Board extends React.Component {
                         </div>
                     </div>
                 </div >
-                <div className="reset">{this.renderStartGameButton()}</div>
+                <div className="buttonPlusResults">
+                    <div className="reset">{this.renderStartGameButton()}</div>
+                    <div className="results">Score(X:O) {this.state.xwin}:{this.state.owin}</div>
+                </div >
             </div>
         );
     }
