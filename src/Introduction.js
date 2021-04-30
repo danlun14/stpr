@@ -26,7 +26,7 @@ function Rules() {
 class Introduction extends React.Component {
     render() {
         return (
-            <div >
+            <div>
                 <Rules />
             </div>
         );
