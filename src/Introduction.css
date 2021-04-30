@@ -3,6 +3,7 @@
     font-family:gabriola;
     width: 40%;
     text-align: center;
+    margin-left:15%;
 }
 
 .rules1{
@@ -10,4 +11,6 @@
     font-family:gabriola;
     width: 40%;
     text-align: left;
+    
+    margin-left:15%;
 }
